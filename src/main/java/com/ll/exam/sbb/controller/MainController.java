@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class MainController {
+  private int increaseNum = -1;
   @RequestMapping("/sbb")
   @ResponseBody
   public String index(){
@@ -38,5 +39,24 @@ public class MainController {
            <h1>입력된 나이 : %d</h1>
            <h1>안녕하세요. GET 방식으로 오신걸 환영합니다.</h1>           
            """.formatted(age);
+  }
+
+  @GetMapping("/plus")
+  @ResponseBody
+  public int plus(int a, int b){
+    return a + b;
+  }
+
+  @GetMapping("/minus")
+  @ResponseBody
+  public int minus(int a, int b){
+    return a - b;
+  }
+
+  @GetMapping("/increase")
+  @ResponseBody
+  public int increase(){
+    increaseNum++;
+    return increaseNum;
   }
 }
