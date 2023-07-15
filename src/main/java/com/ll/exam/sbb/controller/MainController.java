@@ -76,6 +76,7 @@ public class MainController {
   }
 
   @GetMapping("/gugudan2")
+  @ResponseBody
   public String showGugudan2(Integer dan, Integer limit){
     if(dan==null){
       dan=9;
@@ -89,4 +90,22 @@ public class MainController {
         .mapToObj((i -> "%d * %d = %d".formatted(finalDan, i, finalDan*i)))
         .collect(Collectors.joining("<br>"));
   }
+
+  @GetMapping("/mbti")
+  @ResponseBody
+  public String showMbti(String name){
+    String mbti = "";
+
+    if(name.equals("홍길동")){
+      mbti = "INFP";
+    }
+    else if (name.equals("홍길순")){
+      mbti = "ENFP";
+    }
+    else if (name.equals("김세헌")){
+      mbti = "ISTP";
+    }
+    return mbti;
+  }
+
 }
