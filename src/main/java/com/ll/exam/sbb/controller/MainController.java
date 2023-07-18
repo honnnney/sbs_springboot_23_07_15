@@ -159,6 +159,26 @@ public class MainController {
     return article;
   }
 
+  @GetMapping("/modifyArticle/{id}/{title}/{body}")
+  @ResponseBody
+  public String modifyarticle(@PathVariable int id, @PathVariable String title, @PathVariable String body){
+
+    Article article = articles.stream().filter(article1 -> article1.getId() == id).findFirst().get();
+    article.title = title;
+    article.body = body;
+
+    return "%d번 게시물을 수정하였습니다.".formatted(article.getId());
+  }
+
+  @GetMapping("/deleteArticle/{id}")
+  @ResponseBody
+  public void deleteArticle(@PathVariable int id){
+    Article article = articles.stream().filter(article1 -> article1.getId() == id).findFirst().get();
+
+    articles.remove(id);
+  }
+
+
 
   @AllArgsConstructor
   @Getter
