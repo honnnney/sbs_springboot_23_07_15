@@ -1,10 +1,14 @@
 package com.ll.exam.sbb.controller;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -135,5 +139,39 @@ public class MainController {
     return "%s의 나이는 %s입니다.".formatted(name, age);
   }
 
+  private List<Article> articles = new ArrayList<>();
+
+  @GetMapping("/addArticle/{title}/{body}")
+  @ResponseBody
+  public String addArticle (@PathVariable String title, @PathVariable String body){
+
+    Article article = new Article(title, body);
+    articles.add(article);
+
+    return "%d번 글이 등록되었습니다.".formatted(article.getId());
+  }
+
+  @GetMapping("/article/{id}")
+  @ResponseBody
+  public Article article (@PathVariable int id){
+    Article article = articles.stream().filter(article1 -> article1.getId() == id).findFirst().get();
+
+    return article;
+  }
+
+
+  @AllArgsConstructor
+  @Getter
+  class Article{
+    private static int lastid = 0;
+
+    private int  id;
+    private String title;
+    private String body;
+
+    public Article(String title, String body){
+      this(++lastid, title, body);
+    }
+  }
 
 }
