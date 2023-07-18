@@ -3,6 +3,8 @@ package com.ll.exam.sbb.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -107,5 +109,31 @@ public class MainController {
     }
     return mbti;
   }
+
+  @GetMapping("/saveSession/{age}/{name}")
+  @ResponseBody
+  public String saveSession(@PathVariable String age, @PathVariable String name, HttpServletRequest request){
+    HttpSession session = request.getSession();
+    session.setAttribute(age, name);
+
+    return "이름: %s, 나이: %s 저장완료".formatted(name, age);
+  }
+
+//  @GetMapping("/getSession/{name}")
+//  @ResponseBody
+//  public String getSession(@PathVariable String name, HttpSession session){
+//    String age = (String) session.getAttribute(name);
+//
+//    return "%s의 나이는 %s입니다.".formatted(name, age);
+//  }
+
+  @GetMapping("/getSession/{age}")
+  @ResponseBody
+  public String getSession(@PathVariable String age, HttpSession session){
+    String name = (String) session.getAttribute(age);
+
+    return "%s의 나이는 %s입니다.".formatted(name, age);
+  }
+
 
 }
