@@ -48,4 +48,10 @@ class SbbApplicationTests {
 
 	}
 
+	@Test
+	void testJpa4() {
+		Question oq = this.questionRepository.findByContent("sbb가 무엇인가요?");	//this 생략가능
+
+	}
+
 }
