@@ -42,4 +42,10 @@ class SbbApplicationTests {
 		assertEquals("sbb가 무엇인가요?", q.getSubject());
 	}
 
+	@Test
+	void testJpa3() {
+		Question oq = this.questionRepository.findBySubject("sbb가 무엇인가요?");	//this 생략가능
+
+	}
+
 }
