@@ -44,13 +44,20 @@ class SbbApplicationTests {
 
 	@Test
 	void testJpa3() {
-		Question oq = this.questionRepository.findBySubject("sbb가 무엇인가요?");	//this 생략가능
+		Question q = this.questionRepository.findBySubject("sbb가 무엇인가요?");	//this 생략가능
 
 	}
 
 	@Test
 	void testJpa4() {
-		Question oq = this.questionRepository.findByContent("sbb가 무엇인가요?");	//this 생략가능
+		Question q = this.questionRepository.findByContent("sbb가 무엇인가요?");	//this 생략가능
+
+	}
+
+	@Test
+	void testJpa5() {
+		Question q = this.questionRepository.findBySubjectAndContent("sbb가 무엇인가요?", "sbb에 대해서 알고 싶습니다.");	//this 생략가능
+		assertEquals(1 , q.getId());
 
 	}
 
