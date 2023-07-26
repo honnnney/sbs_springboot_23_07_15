@@ -1,8 +1,11 @@
 package com.ll.exam.sbb.question;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Data
 @Entity //아래 Question 클래스는 Entity 클래스이다 라고 알려줌.
 //아래 클래스와 1:1로 매칭되는 테이블이 DB에 없다면, 자동으로 생성되어야 한다.
 public class Question {
@@ -18,3 +21,5 @@ public class Question {
 
   private LocalDateTime createDate;
 }
+
+
