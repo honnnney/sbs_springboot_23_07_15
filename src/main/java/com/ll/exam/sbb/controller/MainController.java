@@ -2,6 +2,7 @@ package com.ll.exam.sbb.controller;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -164,8 +165,8 @@ public class MainController {
   public String modifyarticle(@PathVariable int id, @PathVariable String title, @PathVariable String body){
 
     Article article = articles.stream().filter(article1 -> article1.getId() == id).findFirst().get();
-    article.title = title;
-    article.body = body;
+    article.setTitle(title);
+    article.setBody(body);
 
     return "%d번 게시물을 수정하였습니다.".formatted(article.getId());
   }
@@ -175,23 +176,66 @@ public class MainController {
   public void deleteArticle(@PathVariable int id){
     Article article = articles.stream().filter(article1 -> article1.getId() == id).findFirst().get();
 
-    articles.remove(id);
+    articles.remove(article);
+  }
+
+//  @GetMapping("/addPerson/{id}/{age}/{name}")
+//  @ResponseBody
+//  public String addPerson(@PathVariable int id, @PathVariable int age, @PathVariable String name){
+//    Person person = new Person(id, age, name);
+//
+//    return "주민번호: %d <br>\n 나이 : %d <br>\n 이름 : %s".formatted(id, age, name);
+//  }
+//  @GetMapping("/addPerson2/{id}/{age}/{name}")
+//  @ResponseBody
+//  public String addPerson2 (Person p){
+//    p.id = p.getId();
+//    p.age = p.getAge();
+//    p.name = p.getName();
+//
+//    return "주민번호: %d <br>\n 나이 : %d <br>\n 이름 : %s".formatted(p.getId(), p.getAge(), p.getName());
+//  }
+
+  //강사 코드
+  @GetMapping("/addPersonOnlyWay")
+  @ResponseBody
+  public Person addPersonOnlyWay(int id, int age, String name) {
+    Person p = new Person(id, age, name);
+    return p;
+  }
+
+  @GetMapping("/addPerson/{id}")
+  @ResponseBody
+  public Person addPerson(Person p) {
+    return p;
   }
 
 
 
-  @AllArgsConstructor
-  @Getter
-  class Article{
-    private static int lastid = 0;
 
-    private int  id;
-    private String title;
-    private String body;
+}
 
-    public Article(String title, String body){
-      this(++lastid, title, body);
-    }
-  }
 
+@AllArgsConstructor
+@Getter
+@Setter
+class Article{
+  private static int lastid = 0;
+
+  private int  id;
+  private String title;
+  private String body;
+
+  public Article(String title, String body){
+    this(++lastid, title, body);
+  } //addArticle에서 입력하면 숫자 올라감
+}
+
+
+@AllArgsConstructor
+@Getter
+class Person{
+  private int id;
+  private int age;
+  private String name;
 }
