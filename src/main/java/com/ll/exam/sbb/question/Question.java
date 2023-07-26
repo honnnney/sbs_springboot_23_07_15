@@ -1,9 +1,11 @@
 package com.ll.exam.sbb.question;
 
+import com.ll.exam.sbb.answer.Answer;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Entity //아래 Question 클래스는 Entity 클래스이다 라고 알려줌.
@@ -20,6 +22,9 @@ public class Question {
   private String content;
 
   private LocalDateTime createDate;
+
+  @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE) //
+  private List<Answer> answerList;  //Question 하나(One)에 Answer 여러개(Many), answerList
 }
 
 
